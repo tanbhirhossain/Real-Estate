@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\FRONT\HomepageController;
+use App\Http\Controllers\Front\PropertyController;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 
@@ -13,6 +14,7 @@ use Inertia\Inertia;
 // });
 
 Route::get('/', [HomepageController::class, 'index'])->name('front.home');
+Route::get('/property', [PropertyController::class, 'index'])->name('front.property');
 Route::get('/room/{slug}', [HomepageController::class, 'roomDetails'])->name('front.room.details');
 
 
