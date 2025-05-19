@@ -15,7 +15,8 @@ return new class extends Migration
             $table->id();
             $table->unsignedBigInteger('realtor_id');
             $table->unsignedBigInteger('category_id');
-            $table->string('name');
+            $table->string('title');
+            $table->string('slug')->unique();
             $table->text('short_desc');
             $table->longText('descriptions');
             $table->decimal('price', 10, 2);
@@ -28,7 +29,7 @@ return new class extends Migration
             $table->unsignedBigInteger('created_by');
 
             $table->foreign('created_by')->references('id')->on('users');
-            $table->foreign('realtor_id')->references('id')->on('realtors');
+            $table->foreign('realtor_id')->references('id')->on('realtors')->cascadeOnDelete();
             $table->foreign('category_id')->references('id')->on('categories');
 
    

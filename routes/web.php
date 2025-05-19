@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\FRONT\HomepageController;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 
@@ -7,10 +8,12 @@ use Inertia\Inertia;
 //     return Inertia::render('Welcome');
 // })->name('home');
 
-Route::get('/', function(){
-    return Inertia::render('Front/Home');
-});
+// Route::get('/', function(){
+//     return Inertia::render('Front/Home');
+// });
 
+Route::get('/', [HomepageController::class, 'index'])->name('front.home');
+Route::get('/room/{slug}', [HomepageController::class, 'roomDetails'])->name('front.room.details');
 
 
 

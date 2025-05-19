@@ -14,9 +14,11 @@ return new class extends Migration
         Schema::create('realtors', function (Blueprint $table) {
             $table->id();
             $table->string('name', 70);
+            $table->string('slug')->unique();
             $table->string('phone', 15);
             $table->string('email');
             $table->text('address')->nullable();
+            $table->longText('bio')->nullable();
             //Image will need to integrate with Laravel media Library (Spatie)
             $table->unsignedBigInteger('created_by')->nullable();
 
