@@ -21,9 +21,12 @@ return new class extends Migration
             $table->longText('descriptions');
             $table->decimal('price', 10, 2);
             $table->string('city');
+            
             $table->text('address')->nullable();
             $table->integer('bedroom')->nullable()->default(0);
             $table->integer('bathroom')->nullable()->default(0);
+
+            $table->boolean('isHome')->default(0);
             
             $table->integer('size')->nullable();
             $table->unsignedBigInteger('created_by');

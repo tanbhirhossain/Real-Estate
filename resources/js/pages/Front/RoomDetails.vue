@@ -9,7 +9,7 @@
                     <!-- Single Listings Slides -->
                 <div class="single-listings-sliders owl-carousel">
                     <div v-for="(image, index) in galleryImages" :key="index">
-                    <img :src="image.url" :alt="image.name">
+                    <img style="height: 604px; width: 1200px;" :src="image.url" :alt="image.name">
                     </div>
                 </div>
 
@@ -21,11 +21,16 @@
                     <div class="listings-content">
                         <!-- Price -->
                         <div class="list-price">
-                            <p>{{ house.price.toFixed(2) }}</p>
+                            <p>BDT {{ house.price.toFixed(2) }}</p>
                         </div>
                         <h5>{{ house.title }}</h5>
-                        <p class="location"><img :src="'/temp/img/icons/location.png'"  alt="">{{ house.address }}</p>
-                        <p>{{ house.description }}</p>
+                        <p class="d-flex align-items-center">
+                        <img :src="'/temp/img/icons/location.png'" alt="Location Icon" style="width:18px; height:18px; margin-right:8px;">
+                        {{ house.address }}
+                        </p>
+
+
+                        <p>{{ house.descriptions }}</p>
                         <!-- Meta -->
                         <div class="property-meta-data d-flex align-items-end">
                             <div class="new-tag">
@@ -45,20 +50,12 @@
                             </div>
                         </div>
                         <!-- Core Features -->
-                        <ul class="listings-core-features d-flex align-items-center">
-                            <li><i class="fa fa-check" aria-hidden="true"></i> Gated Community</li>
-                            <li><i class="fa fa-check" aria-hidden="true"></i> Automatic Sprinklers</li>
-                            <li><i class="fa fa-check" aria-hidden="true"></i> Fireplace</li>
-                            <li><i class="fa fa-check" aria-hidden="true"></i> Window Shutters</li>
-                            <li><i class="fa fa-check" aria-hidden="true"></i> Ocean Views</li>
-                            <li><i class="fa fa-check" aria-hidden="true"></i> Heated Floors</li>
-                            <li><i class="fa fa-check" aria-hidden="true"></i> Heated Floors</li>
-                            <li><i class="fa fa-check" aria-hidden="true"></i> Private Patio</li>
-                            <li><i class="fa fa-check" aria-hidden="true"></i> Window Shutters</li>
-                            <li><i class="fa fa-check" aria-hidden="true"></i> Fireplace</li>
-                            <li><i class="fa fa-check" aria-hidden="true"></i> Beach Access</li>
-                            <li><i class="fa fa-check" aria-hidden="true"></i> Rooftop Terrace</li>
+                        <ul class="listings-core-features d-flex align-items-center flex-wrap">
+                        <li v-for="feature in house.features" :key="feature.id">
+                            <i class="fa fa-check" aria-hidden="true"></i> {{ feature.name }}
+                        </li>
                         </ul>
+
                         <!-- Listings Btn Groups -->
                         <div class="listings-btn-groups">
                             <a href="#" class="btn south-btn">See Floor plans</a>
@@ -73,8 +70,16 @@
                             <div class="realtor---info">
                                 <h2>{{ house.realtor.name }}</h2>
                                 <p>Realtor</p>
-                                <h6><img src="/temp/img/icons/phone-call.png" alt=""> {{ house.realtor.phone }}</h6>
-                                <h6><img src="/temp/img/icons/envelope.png" alt=""> {{ house.realtor.email }}</h6>
+                                <h6 class="d-flex align-items-center">
+                                <img src="/temp/img/icons/phone-call.png" alt="Phone Icon" class="me-2" style="width:18px; height:18px;">
+                                {{ house.realtor.phone }}
+                                </h6>
+
+                                <h6 class="d-flex align-items-center">
+                                <img src="/temp/img/icons/envelope.png" alt="Email Icon" class="me-2" style="width:18px; height:18px;">
+                                {{ house.realtor.email }}
+                                </h6>
+
                             </div>
                            <div class="realtor--contact-form max-w-lg mx-auto p-4 shadow rounded-lg bg-white">
                             <div v-if="step === 1" class="mb-6">

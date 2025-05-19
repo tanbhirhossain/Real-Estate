@@ -1,131 +1,624 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>South Real Estate Template</title>
-  <script src="https://cdn.tailwindcss.com"></script>
-  <style>
-    body {
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    }
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mohona</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        /* Custom styles if absolutely needed */
+        body {
+            font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji"; /* Tailwind's default font stack */
+        }
+        .hero-bg-image {
+            background-image: url('https://themewagon.github.io/south/img/bg-img/hero1.jpg');
+        }
+        .cta-rent-bg {
+            background-image: url('https://themewagon.github.io/south/img/bg-img/cta.jpg');
+        }
+        .realtor-jeremy-bg {
+            background-image: url('https://themewagon.github.io/south/img/bg-img/testimonial.jpg'); /* Placeholder for Jeremy Scott image */
+        }
+        .find-home-text-bg {
+            background-color: rgba(0, 0, 0, 0.7);
+        }
+        /* For multi-line text ellipsis (best effort, browser support varies) */
+        .line-clamp-2 {
+            overflow: hidden;
+            display: -webkit-box;
+            -webkit-box-orient: vertical;
+            -webkit-line-clamp: 2; /* Show 2 lines */
+        }
+        .line-clamp-3 {
+            overflow: hidden;
+            display: -webkit-box;
+            -webkit-box-orient: vertical;
+            -webkit-line-clamp: 3; /* Show 3 lines */
+        }
+    </style>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'south-brown': '#96704f',
+                        'south-dark': '#1f2428',
+                    }
+                }
+            }
+        }
+    </script>
 </head>
-<body class="bg-gray-100">
+<body class="bg-white text-gray-700">
 
-  <!-- Top Contact Bar -->
-  <div class="bg-gray-900 text-gray-300 text-sm">
-    <div class="max-w-7xl mx-auto px-4 py-2 flex justify-between items-center">
-      <div>
-        <span>contact@southtemplate.com</span>
-      </div>
-      <div class="flex space-x-4">
-        <span>+43 677 8903820</span>
-        <a href="#" class="hover:underline">Login</a>
-      </div>
+    <!-- 0. Top Bar Contact -->
+    <div class="bg-white py-2 border-b border-gray-200 text-xs text-gray-600">
+        <div class="container mx-auto px-4 flex justify-between items-center">
+            <span>contact@southtemplate.com</span>
+        </div>
     </div>
-  </div>
 
-  <!-- Navigation Bar -->
-  <header class="bg-indigo-800 shadow">
-    <div class="max-w-7xl mx-auto px-4 py-4 flex justify-between items-center">
-      <a href="#" class="text-white text-2xl font-bold flex items-center space-x-2">
-        <svg class="w-6 h-6 text-white" fill="currentColor" viewBox="0 0 24 24">
-          <path d="M12 2L2 7l10 5 10-5-10-5z" />
-          <path d="M2 17l10 5 10-5" />
+    <!-- 1. Main Navigation -->
+    <nav class="bg-south-dark text-white sticky top-0 z-50 shadow-md">
+        <div class="container mx-auto px-4">
+            <div class="flex justify-between items-center py-4">
+                <a href="#" class="text-2xl font-bold flex items-center">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-7 h-7 mr-2 text-south-brown">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M2.25 12l8.954-8.955c.44-.439 1.152-.439 1.591 0L21.75 12M4.5 9.75v10.125c0 .621.504 1.125 1.125 1.125H9.75v-4.875c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125V21h4.125c.621 0 1.125-.504 1.125-1.125V9.75M8.25 21h7.5" />
+                    </svg>
+                    SOUTH
+                </a>
+                <div class="hidden md:flex space-x-6 items-center uppercase text-sm tracking-wider">
+                    <a href="#" class="hover:text-south-brown transition duration-150">Home</a>
+                    <a href="#" class="hover:text-south-brown transition duration-150">Pages</a>
+                    <a href="#" class="hover:text-south-brown transition duration-150">About Us</a>
+                    <a href="#" class="hover:text-south-brown transition duration-150">Properties</a>
+                    <a href="#" class="hover:text-south-brown transition duration-150">Blog</a>
+                    <a href="#" class="hover:text-south-brown transition duration-150">Mega Menu</a>
+                    <a href="#" class="hover:text-south-brown transition duration-150">Contact</a>
+                </div>
+                <div class="flex items-center space-x-4">
+                    <div class="hidden sm:flex items-center space-x-2 text-sm">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-5 h-5 text-south-brown">
+                            <path fill-rule="evenodd" d="M1.5 4.5a3 3 0 013-3h1.372c.86 0 1.61.586 1.819 1.42l1.105 4.423a1.875 1.875 0 01-.694 1.955l-1.293.97c-.135.101-.164.249-.126.352a11.285 11.285 0 006.697 6.697c.103.038.25.009.352-.126l.97-1.293a1.875 1.875 0 011.955-.694l4.423 1.105c.834.209 1.42.959 1.42 1.82V19.5a3 3 0 01-3 3h-2.25C6.55 22.5 1.5 17.45 1.5 10.5V4.5z" clip-rule="evenodd" />
+                        </svg>
+                        <span class="text-gray-300">+45 677 8993000 223</span>
+                    </div>
+                    <button class="hover:text-south-brown transition duration-150">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607z" />
+                        </svg>
+                    </button>
+                    <button class="md:hidden text-white">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" />
+                        </svg>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- 2. Hero Image Section -->
+    <section class="hero-bg-image bg-cover bg-center h-[500px] md:h-[600px] lg:h-[700px] relative flex items-center justify-center">
+        <div class="relative z-10 text-center p-6 find-home-text-bg">
+            <h1 class="text-white text-4xl sm:text-5xl md:text-6xl font-bold uppercase tracking-wider">
+                Find Your Home
+            </h1>
+        </div>
+    </section>
+
+    <!-- 3. Search Filter Section -->
+    <section class="bg-gray-50 py-12 md:py-16 -mt-16 relative z-20">
+        <div class="container mx-auto px-4">
+            <div class="bg-white p-6 md:p-10 shadow-xl rounded-md max-w-5xl mx-auto">
+                <form class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-x-6 gap-y-6 items-end">
+                    <div>
+                        <label for="keyword" class="block text-sm font-medium text-gray-700 mb-1">Keyword</label>
+                        <input type="text" id="keyword" placeholder="Keyword" class="w-full p-3 border border-gray-300 rounded-md focus:ring-2 focus:ring-south-brown focus:border-transparent text-gray-700">
+                    </div>
+                    <div>
+                        <label for="all-cities" class="block text-sm font-medium text-gray-700 mb-1">All Cities</label>
+                        <select id="all-cities" class="w-full p-3 border border-gray-300 rounded-md focus:ring-2 focus:ring-south-brown focus:border-transparent text-gray-700 bg-white">
+                            <option>All Cities</option> <option>New York</option> <option>Los Angeles</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label for="all-categories" class="block text-sm font-medium text-gray-700 mb-1">All Categories</label>
+                        <select id="all-categories" class="w-full p-3 border border-gray-300 rounded-md focus:ring-2 focus:ring-south-brown focus:border-transparent text-gray-700 bg-white">
+                            <option>All Categories</option> <option>Apartment</option> <option>House</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label for="all-offers" class="block text-sm font-medium text-gray-700 mb-1">All Offers</label>
+                        <select id="all-offers" class="w-full p-3 border border-gray-300 rounded-md focus:ring-2 focus:ring-south-brown focus:border-transparent text-gray-700 bg-white">
+                            <option>All Offers</option> <option>For Sale</option> <option>For Rent</option>
+                        </select>
+                    </div>
+                    <div class="sm:col-span-2 lg:col-span-1">
+                        <label class="block text-sm font-medium text-gray-700 mb-1">Price Range</label>
+                        <div class="flex space-x-2">
+                            <input type="number" placeholder="Min $" class="w-1/2 p-3 border border-gray-300 rounded-md focus:ring-2 focus:ring-south-brown focus:border-transparent text-gray-700">
+                            <input type="number" placeholder="Max $" class="w-1/2 p-3 border border-gray-300 rounded-md focus:ring-2 focus:ring-south-brown focus:border-transparent text-gray-700">
+                        </div>
+                    </div>
+                     <div>
+                        <label for="bedrooms" class="block text-sm font-medium text-gray-700 mb-1">Bedrooms</label>
+                        <select id="bedrooms" class="w-full p-3 border border-gray-300 rounded-md focus:ring-2 focus:ring-south-brown focus:border-transparent text-gray-700 bg-white">
+                            <option>Bedrooms</option> <option>1</option> <option>2</option> <option>3+</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label for="bathrooms" class="block text-sm font-medium text-gray-700 mb-1">Bathrooms</label>
+                        <select id="bathrooms" class="w-full p-3 border border-gray-300 rounded-md focus:ring-2 focus:ring-south-brown focus:border-transparent text-gray-700 bg-white">
+                            <option>Bathrooms</option> <option>1</option> <option>2</option> <option>3+</option>
+                        </select>
+                    </div>
+                    <div class="sm:col-span-2 lg:col-span-1">
+                        <label class="block text-sm font-medium text-gray-700 mb-1">Area (sq ft)</label>
+                         <div class="flex space-x-2">
+                            <input type="number" placeholder="Min sq ft" class="w-1/2 p-3 border border-gray-300 rounded-md focus:ring-2 focus:ring-south-brown focus:border-transparent text-gray-700">
+                            <input type="number" placeholder="Max sq ft" class="w-1/2 p-3 border border-gray-300 rounded-md focus:ring-2 focus:ring-south-brown focus:border-transparent text-gray-700">
+                        </div>
+                    </div>
+                    <div class="col-span-1 sm:col-span-2 lg:col-span-4 flex flex-col sm:flex-row justify-between items-center gap-4 pt-4">
+                        <a href="#" class="text-sm text-south-brown hover:underline">+ More Filters</a>
+                        <button type="submit" class="w-full sm:w-auto bg-south-brown hover:bg-opacity-80 text-white font-semibold py-3 px-10 rounded-md transition duration-150 uppercase tracking-wider">
+                            Search
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- 4. Featured Properties Section - ENHANCED -->
+<section class="py-12 md:py-20 bg-white">
+    <div class="container mx-auto px-4">
+        <div class="text-center mb-10 md:mb-16">
+            <h2 class="text-3xl md:text-4xl font-bold text-gray-800 uppercase">Featured Properties</h2>
+            <p class="text-gray-500 mt-2">Suspendisse dictum enim sit amet libero malesuada feugiat.</p>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            <!-- Property Card 1 -->
+            <div class="bg-white border border-gray-200 rounded-lg shadow-lg overflow-hidden group transition-all duration-300 hover:shadow-2xl hover:-translate-y-2">
+                <div class="relative">
+                    <img src="https://themewagon.github.io/south/img/bg-img/feature1.jpg" alt="Property Image" class="w-full h-64 object-cover transition-transform duration-500 group-hover:scale-110">
+                    <div class="absolute inset-0 bg-black opacity-0 group-hover:opacity-20 transition-opacity duration-300"></div>
+                    <span class="absolute top-4 left-4 bg-south-brown text-white text-xs font-semibold px-3 py-1.5 rounded shadow-md uppercase tracking-wider">For Sale</span>
+                    <div class="absolute bottom-0 left-0 w-full p-4 bg-gradient-to-t from-black/80 via-black/50 to-transparent">
+                        <p class="text-white text-2xl font-bold">$945 679</p>
+                    </div>
+                </div>
+                <div class="p-5">
+                    <h3 class="text-xl font-bold text-gray-800 mb-1 group-hover:text-south-brown transition-colors duration-200">
+                        <a href="#" class="hover:underline">Villa in Los Angeles</a>
+                    </h3>
+                    <p class="text-sm text-gray-500 mb-3 flex items-center">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="w-4 h-4 mr-1.5 text-gray-400 flex-shrink-0"> <path fill-rule="evenodd" d="M9.69 18.933l.003.001C9.89 19.02 10 19 10 19s.11.02.308-.066l.002-.001.006-.003.018-.008a5.741 5.741 0 00.281-.145l.005-.002.007-.004.011-.007a48.45 48.45 0 002.406-1.916l.003-.002c1.604-1.41 3.096-3.076 3.999-4.817.888-1.707 1.261-3.49 1.261-5.224C18 5.48 14.433 2 10 2S2 5.48 2 9.755c0 1.734.373 3.517 1.261 5.224.903 1.74 2.395 3.406 3.999 4.817l.003.002a48.445 48.445 0 002.406 1.916l.011.007.007.004.005.002a5.74 5.74 0 00.28.145l.019.008.006.003zM10 11.75a2 2 0 100-4 2 2 0 000 4z" clip-rule="evenodd" /> </svg>
+                        Upper Road 3411, no.34 CA
+                    </p>
+                    <p class="text-gray-600 text-sm my-4 h-12 line-clamp-2">
+                        Integer nec bibendum lacus. Suspendisse dictum enim sit amet libero malesuada feugiat. Praesent sapien massa, convallis a pellentesque nec, egestas non nisi.
+                    </p>
+                    <div class="border-t border-gray-200 pt-4 mt-4">
+                        <div class="flex flex-wrap justify-between items-center text-xs text-gray-600 gap-y-3 gap-x-2">
+                            <span class="inline-flex items-center bg-yellow-100 text-yellow-800 px-2.5 py-1 rounded-full font-medium">
+                                <svg class="w-3 h-3 mr-1.5 text-yellow-600" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path></svg>
+                                NEW
+                            </span>
+                            <span class="flex items-center" title="Property Type">
+                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="w-4 h-4 mr-1 text-south-brown"><path d="M10.75 2.75a.75.75 0 00-1.5 0v8.586l-1.22-1.22a.75.75 0 00-1.06 1.06l2.5 2.5a.75.75 0 001.06 0l2.5-2.5a.75.75 0 10-1.06-1.06l-1.22 1.22V2.75z" /><path d="M3.5 9.75a.75.75 0 01.75-.75h11.5a.75.75 0 010 1.5H4.25a.75.75 0 01-.75-.75zM3 15.25a.75.75 0 01.75-.75h12.5a.75.75 0 010 1.5H3.75a.75.75 0 01-.75-.75z" /></svg>
+                                House
+                            </span>
+                            <span class="flex items-center" title="Bedrooms">
+                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-4 h-4 mr-1 text-south-brown"><path stroke-linecap="round" stroke-linejoin="round" d="M3.75 5.25h16.5m-16.5 4.5h16.5m-16.5 4.5h16.5m-16.5 4.5h16.5" /></svg>
+                                2 Bed
+                            </span>
+                            <span class="flex items-center" title="Bathrooms">
+                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-4 h-4 mr-1 text-south-brown"><path stroke-linecap="round" stroke-linejoin="round" d="M13.5 10.5V21M10.5 10.5V21M10.5 10.5C10.5 7.90215 8.79995 5.75 6.375 5.75C4.20005 5.75 2.25 7.90215 2.25 10.5V10.5C2.25 12.375 3.375 14.625 6.375 14.625C8.25 14.625 9.375 16.125 9.375 16.125" /><path stroke-linecap="round" stroke-linejoin="round" d="M17.25 11.25l-3.75-5.25M13.5 11.25l3.75-5.25M13.5 11.25v3.75M13.5 15H9.75M13.5 15H15M13.5 15v3.75M13.5 18.75v3.75M13.5 22.5v-3.75" /></svg>
+                                2 Bath
+                            </span>
+                            <span class="flex items-center" title="Area">
+                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-4 h-4 mr-1 text-south-brown"><path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607z" /></svg>
+                                120 sq ft
+                            </span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Property Card 2 -->
+            <div class="bg-white border border-gray-200 rounded-lg shadow-lg overflow-hidden group transition-all duration-300 hover:shadow-2xl hover:-translate-y-2">
+                <div class="relative">
+                    <img src="https://themewagon.github.io/south/img/bg-img/feature2.jpg" alt="Property Image" class="w-full h-64 object-cover transition-transform duration-500 group-hover:scale-110">
+                    <div class="absolute inset-0 bg-black opacity-0 group-hover:opacity-20 transition-opacity duration-300"></div>
+                    <span class="absolute top-4 left-4 bg-south-brown text-white text-xs font-semibold px-3 py-1.5 rounded shadow-md uppercase tracking-wider">For Rent</span>
+                    <div class="absolute bottom-0 left-0 w-full p-4 bg-gradient-to-t from-black/80 via-black/50 to-transparent">
+                        <p class="text-white text-2xl font-bold">$2,500 / mo</p>
+                    </div>
+                </div>
+                 <div class="p-5">
+                    <h3 class="text-xl font-bold text-gray-800 mb-1 group-hover:text-south-brown transition-colors duration-200">
+                        <a href="#" class="hover:underline">Modern Apartment NYC</a>
+                    </h3>
+                    <p class="text-sm text-gray-500 mb-3 flex items-center">
+                       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="w-4 h-4 mr-1.5 text-gray-400 flex-shrink-0"> <path fill-rule="evenodd" d="M9.69 18.933l.003.001C9.89 19.02 10 19 10 19s.11.02.308-.066l.002-.001.006-.003.018-.008a5.741 5.741 0 00.281-.145l.005-.002.007-.004.011-.007a48.45 48.45 0 002.406-1.916l.003-.002c1.604-1.41 3.096-3.076 3.999-4.817.888-1.707 1.261-3.49 1.261-5.224C18 5.48 14.433 2 10 2S2 5.48 2 9.755c0 1.734.373 3.517 1.261 5.224.903 1.74 2.395 3.406 3.999 4.817l.003.002a48.445 48.445 0 002.406 1.916l.011.007.007.004.005.002a5.74 5.74 0 00.28.145l.019.008.006.003zM10 11.75a2 2 0 100-4 2 2 0 000 4z" clip-rule="evenodd" /> </svg>
+                        Park Avenue, 12th Floor
+                    </p>
+                    <p class="text-gray-600 text-sm my-4 h-12 line-clamp-2">
+                        Stunning views and modern amenities. Perfect for city living with easy access to transport and entertainment.
+                    </p>
+                    <div class="border-t border-gray-200 pt-4 mt-4">
+                        <div class="flex flex-wrap justify-between items-center text-xs text-gray-600 gap-y-3 gap-x-2">
+                            <span class="inline-flex items-center bg-green-100 text-green-800 px-2.5 py-1 rounded-full font-medium">
+                                <svg class="w-3 h-3 mr-1.5 text-green-600" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path></svg>
+                                AVAILABLE
+                            </span>
+                            <span class="flex items-center" title="Property Type">
+                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="w-4 h-4 mr-1 text-south-brown"><path d="M10.75 2.75a.75.75 0 00-1.5 0v8.586l-1.22-1.22a.75.75 0 00-1.06 1.06l2.5 2.5a.75.75 0 001.06 0l2.5-2.5a.75.75 0 10-1.06-1.06l-1.22 1.22V2.75z" /><path d="M3.5 9.75a.75.75 0 01.75-.75h11.5a.75.75 0 010 1.5H4.25a.75.75 0 01-.75-.75zM3 15.25a.75.75 0 01.75-.75h12.5a.75.75 0 010 1.5H3.75a.75.75 0 01-.75-.75z" /></svg>
+                                Apartment
+                            </span>
+                            <span class="flex items-center" title="Bedrooms">
+                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-4 h-4 mr-1 text-south-brown"><path stroke-linecap="round" stroke-linejoin="round" d="M3.75 5.25h16.5m-16.5 4.5h16.5m-16.5 4.5h16.5m-16.5 4.5h16.5" /></svg>
+                                1 Bed
+                            </span>
+                            <span class="flex items-center" title="Bathrooms">
+                               <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-4 h-4 mr-1 text-south-brown"><path stroke-linecap="round" stroke-linejoin="round" d="M13.5 10.5V21M10.5 10.5V21M10.5 10.5C10.5 7.90215 8.79995 5.75 6.375 5.75C4.20005 5.75 2.25 7.90215 2.25 10.5V10.5C2.25 12.375 3.375 14.625 6.375 14.625C8.25 14.625 9.375 16.125 9.375 16.125" /><path stroke-linecap="round" stroke-linejoin="round" d="M17.25 11.25l-3.75-5.25M13.5 11.25l3.75-5.25M13.5 11.25v3.75M13.5 15H9.75M13.5 15H15M13.5 15v3.75M13.5 18.75v3.75M13.5 22.5v-3.75" /></svg>
+                                1 Bath
+                            </span>
+                            <span class="flex items-center" title="Area">
+                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-4 h-4 mr-1 text-south-brown"><path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607z" /></svg>
+                                80 sq ft
+                            </span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Property Card 3 -->
+            <div class="bg-white border border-gray-200 rounded-lg shadow-lg overflow-hidden group transition-all duration-300 hover:shadow-2xl hover:-translate-y-2">
+                <div class="relative">
+                    <img src="https://themewagon.github.io/south/img/bg-img/feature3.jpg" alt="Property Image" class="w-full h-64 object-cover transition-transform duration-500 group-hover:scale-110">
+                    <div class="absolute inset-0 bg-black opacity-0 group-hover:opacity-20 transition-opacity duration-300"></div>
+                    <span class="absolute top-4 left-4 bg-south-brown text-white text-xs font-semibold px-3 py-1.5 rounded shadow-md uppercase tracking-wider">For Sale</span>
+                    <div class="absolute bottom-0 left-0 w-full p-4 bg-gradient-to-t from-black/80 via-black/50 to-transparent">
+                        <p class="text-white text-2xl font-bold">$1,250,000</p>
+                    </div>
+                </div>
+                 <div class="p-5">
+                    <h3 class="text-xl font-bold text-gray-800 mb-1 group-hover:text-south-brown transition-colors duration-200">
+                        <a href="#" class="hover:underline">Luxury Beachfront Villa</a>
+                    </h3>
+                    <p class="text-sm text-gray-500 mb-3 flex items-center">
+                       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="w-4 h-4 mr-1.5 text-gray-400 flex-shrink-0"> <path fill-rule="evenodd" d="M9.69 18.933l.003.001C9.89 19.02 10 19 10 19s.11.02.308-.066l.002-.001.006-.003.018-.008a5.741 5.741 0 00.281-.145l.005-.002.007-.004.011-.007a48.45 48.45 0 002.406-1.916l.003-.002c1.604-1.41 3.096-3.076 3.999-4.817.888-1.707 1.261-3.49 1.261-5.224C18 5.48 14.433 2 10 2S2 5.48 2 9.755c0 1.734.373 3.517 1.261 5.224.903 1.74 2.395 3.406 3.999 4.817l.003.002a48.445 48.445 0 002.406 1.916l.011.007.007.004.005.002a5.74 5.74 0 00.28.145l.019.008.006.003zM10 11.75a2 2 0 100-4 2 2 0 000 4z" clip-rule="evenodd" /> </svg>
+                        Malibu Coast, CA
+                    </p>
+                    <p class="text-gray-600 text-sm my-4 h-12 line-clamp-2">
+                        Experience ultimate luxury with private beach access, infinity pool, and breathtaking ocean views. A true paradise.
+                    </p>
+                    <div class="border-t border-gray-200 pt-4 mt-4">
+                        <div class="flex flex-wrap justify-between items-center text-xs text-gray-600 gap-y-3 gap-x-2">
+                            <span class="inline-flex items-center bg-yellow-100 text-yellow-800 px-2.5 py-1 rounded-full font-medium">
+                                <svg class="w-3 h-3 mr-1.5 text-yellow-600" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path></svg>
+                                NEW
+                            </span>
+                            <span class="flex items-center" title="Property Type">
+                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="w-4 h-4 mr-1 text-south-brown"><path d="M10.75 2.75a.75.75 0 00-1.5 0v8.586l-1.22-1.22a.75.75 0 00-1.06 1.06l2.5 2.5a.75.75 0 001.06 0l2.5-2.5a.75.75 0 10-1.06-1.06l-1.22 1.22V2.75z" /><path d="M3.5 9.75a.75.75 0 01.75-.75h11.5a.75.75 0 010 1.5H4.25a.75.75 0 01-.75-.75zM3 15.25a.75.75 0 01.75-.75h12.5a.75.75 0 010 1.5H3.75a.75.75 0 01-.75-.75z" /></svg>
+                                Villa
+                            </span>
+                            <span class="flex items-center" title="Bedrooms">
+                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-4 h-4 mr-1 text-south-brown"><path stroke-linecap="round" stroke-linejoin="round" d="M3.75 5.25h16.5m-16.5 4.5h16.5m-16.5 4.5h16.5m-16.5 4.5h16.5" /></svg>
+                                4 Bed
+                            </span>
+                            <span class="flex items-center" title="Bathrooms">
+                               <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-4 h-4 mr-1 text-south-brown"><path stroke-linecap="round" stroke-linejoin="round" d="M13.5 10.5V21M10.5 10.5V21M10.5 10.5C10.5 7.90215 8.79995 5.75 6.375 5.75C4.20005 5.75 2.25 7.90215 2.25 10.5V10.5C2.25 12.375 3.375 14.625 6.375 14.625C8.25 14.625 9.375 16.125 9.375 16.125" /><path stroke-linecap="round" stroke-linejoin="round" d="M17.25 11.25l-3.75-5.25M13.5 11.25l3.75-5.25M13.5 11.25v3.75M13.5 15H9.75M13.5 15H15M13.5 15v3.75M13.5 18.75v3.75M13.5 22.5v-3.75" /></svg>
+                                5 Bath
+                            </span>
+                            <span class="flex items-center" title="Area">
+                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-4 h-4 mr-1 text-south-brown"><path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607z" /></svg>
+                                350 sq ft
+                            </span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Property Card 4 -->
+            <div class="bg-white border border-gray-200 rounded-lg shadow-lg overflow-hidden group transition-all duration-300 hover:shadow-2xl hover:-translate-y-2">
+                <div class="relative">
+                    <img src="https://themewagon.github.io/south/img/bg-img/feature4.jpg" alt="Property Image" class="w-full h-64 object-cover transition-transform duration-500 group-hover:scale-110">
+                    <div class="absolute inset-0 bg-black opacity-0 group-hover:opacity-20 transition-opacity duration-300"></div>
+                    <span class="absolute top-4 left-4 bg-red-600 text-white text-xs font-semibold px-3 py-1.5 rounded shadow-md uppercase tracking-wider">Sold</span>
+                    <div class="absolute bottom-0 left-0 w-full p-4 bg-gradient-to-t from-black/80 via-black/50 to-transparent">
+                        <p class="text-white text-2xl font-bold">$750,000</p>
+                    </div>
+                </div>
+                <div class="p-5">
+                    <h3 class="text-xl font-bold text-gray-800 mb-1 group-hover:text-south-brown transition-colors duration-200">
+                        <a href="#" class="hover:underline">Charming Suburban Home</a>
+                    </h3>
+                    <p class="text-sm text-gray-500 mb-3 flex items-center">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="w-4 h-4 mr-1.5 text-gray-400 flex-shrink-0"> <path fill-rule="evenodd" d="M9.69 18.933l.003.001C9.89 19.02 10 19 10 19s.11.02.308-.066l.002-.001.006-.003.018-.008a5.741 5.741 0 00.281-.145l.005-.002.007-.004.011-.007a48.45 48.45 0 002.406-1.916l.003-.002c1.604-1.41 3.096-3.076 3.999-4.817.888-1.707 1.261-3.49 1.261-5.224C18 5.48 14.433 2 10 2S2 5.48 2 9.755c0 1.734.373 3.517 1.261 5.224.903 1.74 2.395 3.406 3.999 4.817l.003.002a48.445 48.445 0 002.406 1.916l.011.007.007.004.005.002a5.74 5.74 0 00.28.145l.019.008.006.003zM10 11.75a2 2 0 100-4 2 2 0 000 4z" clip-rule="evenodd" /> </svg>
+                        Oak Street 123, Suburbia
+                    </p>
+                    <p class="text-gray-600 text-sm my-4 h-12 line-clamp-2">
+                        Perfect family home with a large backyard, quiet neighborhood, and great schools nearby. Recently renovated.
+                    </p>
+                    <div class="border-t border-gray-200 pt-4 mt-4">
+                        <div class="flex flex-wrap justify-between items-center text-xs text-gray-600 gap-y-3 gap-x-2">
+                            <span class="inline-flex items-center bg-red-100 text-red-800 px-2.5 py-1 rounded-full font-medium">
+                                 <svg class="w-3 h-3 mr-1.5 text-red-600" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z" clip-rule="evenodd"></path></svg>
+                                SOLD
+                            </span>
+                            <span class="flex items-center" title="Property Type">
+                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="w-4 h-4 mr-1 text-south-brown"><path d="M10.75 2.75a.75.75 0 00-1.5 0v8.586l-1.22-1.22a.75.75 0 00-1.06 1.06l2.5 2.5a.75.75 0 001.06 0l2.5-2.5a.75.75 0 10-1.06-1.06l-1.22 1.22V2.75z" /><path d="M3.5 9.75a.75.75 0 01.75-.75h11.5a.75.75 0 010 1.5H4.25a.75.75 0 01-.75-.75zM3 15.25a.75.75 0 01.75-.75h12.5a.75.75 0 010 1.5H3.75a.75.75 0 01-.75-.75z" /></svg>
+                                House
+                            </span>
+                            <span class="flex items-center" title="Bedrooms">
+                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-4 h-4 mr-1 text-south-brown"><path stroke-linecap="round" stroke-linejoin="round" d="M3.75 5.25h16.5m-16.5 4.5h16.5m-16.5 4.5h16.5m-16.5 4.5h16.5" /></svg>
+                                3 Bed
+                            </span>
+                            <span class="flex items-center" title="Bathrooms">
+                               <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-4 h-4 mr-1 text-south-brown"><path stroke-linecap="round" stroke-linejoin="round" d="M13.5 10.5V21M10.5 10.5V21M10.5 10.5C10.5 7.90215 8.79995 5.75 6.375 5.75C4.20005 5.75 2.25 7.90215 2.25 10.5V10.5C2.25 12.375 3.375 14.625 6.375 14.625C8.25 14.625 9.375 16.125 9.375 16.125" /><path stroke-linecap="round" stroke-linejoin="round" d="M17.25 11.25l-3.75-5.25M13.5 11.25l3.75-5.25M13.5 11.25v3.75M13.5 15H9.75M13.5 15H15M13.5 15v3.75M13.5 18.75v3.75M13.5 22.5v-3.75" /></svg>
+                                2 Bath
+                            </span>
+                            <span class="flex items-center" title="Area">
+                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-4 h-4 mr-1 text-south-brown"><path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607z" /></svg>
+                                180 sq ft
+                            </span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Property Card 5 -->
+            <div class="bg-white border border-gray-200 rounded-lg shadow-lg overflow-hidden group transition-all duration-300 hover:shadow-2xl hover:-translate-y-2">
+                <div class="relative">
+                    <img src="https://themewagon.github.io/south/img/bg-img/feature5.jpg" alt="Property Image" class="w-full h-64 object-cover transition-transform duration-500 group-hover:scale-110">
+                    <div class="absolute inset-0 bg-black opacity-0 group-hover:opacity-20 transition-opacity duration-300"></div>
+                    <span class="absolute top-4 left-4 bg-south-brown text-white text-xs font-semibold px-3 py-1.5 rounded shadow-md uppercase tracking-wider">For Rent</span>
+                    <div class="absolute bottom-0 left-0 w-full p-4 bg-gradient-to-t from-black/80 via-black/50 to-transparent">
+                        <p class="text-white text-2xl font-bold">$1,800 / mo</p>
+                    </div>
+                </div>
+                <div class="p-5">
+                    <h3 class="text-xl font-bold text-gray-800 mb-1 group-hover:text-south-brown transition-colors duration-200">
+                        <a href="#" class="hover:underline">Downtown Loft Apartment</a>
+                    </h3>
+                    <p class="text-sm text-gray-500 mb-3 flex items-center">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="w-4 h-4 mr-1.5 text-gray-400 flex-shrink-0"> <path fill-rule="evenodd" d="M9.69 18.933l.003.001C9.89 19.02 10 19 10 19s.11.02.308-.066l.002-.001.006-.003.018-.008a5.741 5.741 0 00.281-.145l.005-.002.007-.004.011-.007a48.45 48.45 0 002.406-1.916l.003-.002c1.604-1.41 3.096-3.076 3.999-4.817.888-1.707 1.261-3.49 1.261-5.224C18 5.48 14.433 2 10 2S2 5.48 2 9.755c0 1.734.373 3.517 1.261 5.224.903 1.74 2.395 3.406 3.999 4.817l.003.002a48.445 48.445 0 002.406 1.916l.011.007.007.004.005.002a5.74 5.74 0 00.28.145l.019.008.006.003zM10 11.75a2 2 0 100-4 2 2 0 000 4z" clip-rule="evenodd" /> </svg>
+                        Central Business District
+                    </p>
+                    <p class="text-gray-600 text-sm my-4 h-12 line-clamp-2">
+                        Spacious open-plan loft with industrial chic design. Close to all amenities and nightlife.
+                    </p>
+                    <div class="border-t border-gray-200 pt-4 mt-4">
+                        <div class="flex flex-wrap justify-between items-center text-xs text-gray-600 gap-y-3 gap-x-2">
+                             <span class="inline-flex items-center bg-green-100 text-green-800 px-2.5 py-1 rounded-full font-medium">
+                                <svg class="w-3 h-3 mr-1.5 text-green-600" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path></svg>
+                                AVAILABLE
+                            </span>
+                            <span class="flex items-center" title="Property Type">
+                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="w-4 h-4 mr-1 text-south-brown"><path d="M10.75 2.75a.75.75 0 00-1.5 0v8.586l-1.22-1.22a.75.75 0 00-1.06 1.06l2.5 2.5a.75.75 0 001.06 0l2.5-2.5a.75.75 0 10-1.06-1.06l-1.22 1.22V2.75z" /><path d="M3.5 9.75a.75.75 0 01.75-.75h11.5a.75.75 0 010 1.5H4.25a.75.75 0 01-.75-.75zM3 15.25a.75.75 0 01.75-.75h12.5a.75.75 0 010 1.5H3.75a.75.75 0 01-.75-.75z" /></svg>
+                                Loft
+                            </span>
+                            <span class="flex items-center" title="Bedrooms">
+                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-4 h-4 mr-1 text-south-brown"><path stroke-linecap="round" stroke-linejoin="round" d="M3.75 5.25h16.5m-16.5 4.5h16.5m-16.5 4.5h16.5m-16.5 4.5h16.5" /></svg>
+                                1 Bed
+                            </span>
+                            <span class="flex items-center" title="Bathrooms">
+                               <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-4 h-4 mr-1 text-south-brown"><path stroke-linecap="round" stroke-linejoin="round" d="M13.5 10.5V21M10.5 10.5V21M10.5 10.5C10.5 7.90215 8.79995 5.75 6.375 5.75C4.20005 5.75 2.25 7.90215 2.25 10.5V10.5C2.25 12.375 3.375 14.625 6.375 14.625C8.25 14.625 9.375 16.125 9.375 16.125" /><path stroke-linecap="round" stroke-linejoin="round" d="M17.25 11.25l-3.75-5.25M13.5 11.25l3.75-5.25M13.5 11.25v3.75M13.5 15H9.75M13.5 15H15M13.5 15v3.75M13.5 18.75v3.75M13.5 22.5v-3.75" /></svg>
+                                1 Bath
+                            </span>
+                            <span class="flex items-center" title="Area">
+                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-4 h-4 mr-1 text-south-brown"><path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607z" /></svg>
+                                100 sq ft
+                            </span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Property Card 6 -->
+            <div class="bg-white border border-gray-200 rounded-lg shadow-lg overflow-hidden group transition-all duration-300 hover:shadow-2xl hover:-translate-y-2">
+                <div class="relative">
+                    <img src="https://themewagon.github.io/south/img/bg-img/feature6.jpg" alt="Property Image" class="w-full h-64 object-cover transition-transform duration-500 group-hover:scale-110">
+                    <div class="absolute inset-0 bg-black opacity-0 group-hover:opacity-20 transition-opacity duration-300"></div>
+                    <span class="absolute top-4 left-4 bg-south-brown text-white text-xs font-semibold px-3 py-1.5 rounded shadow-md uppercase tracking-wider">For Sale</span>
+                    <div class="absolute bottom-0 left-0 w-full p-4 bg-gradient-to-t from-black/80 via-black/50 to-transparent">
+                        <p class="text-white text-2xl font-bold">$620,000</p>
+                    </div>
+                </div>
+                <div class="p-5">
+                    <h3 class="text-xl font-bold text-gray-800 mb-1 group-hover:text-south-brown transition-colors duration-200">
+                        <a href="#" class="hover:underline">Cozy Countryside Cottage</a>
+                    </h3>
+                    <p class="text-sm text-gray-500 mb-3 flex items-center">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="w-4 h-4 mr-1.5 text-gray-400 flex-shrink-0"> <path fill-rule="evenodd" d="M9.69 18.933l.003.001C9.89 19.02 10 19 10 19s.11.02.308-.066l.002-.001.006-.003.018-.008a5.741 5.741 0 00.281-.145l.005-.002.007-.004.011-.007a48.45 48.45 0 002.406-1.916l.003-.002c1.604-1.41 3.096-3.076 3.999-4.817.888-1.707 1.261-3.49 1.261-5.224C18 5.48 14.433 2 10 2S2 5.48 2 9.755c0 1.734.373 3.517 1.261 5.224.903 1.74 2.395 3.406 3.999 4.817l.003.002a48.445 48.445 0 002.406 1.916l.011.007.007.004.005.002a5.74 5.74 0 00.28.145l.019.008.006.003zM10 11.75a2 2 0 100-4 2 2 0 000 4z" clip-rule="evenodd" /> </svg>
+                        Willow Creek, Rural County
+                    </p>
+                    <p class="text-gray-600 text-sm my-4 h-12 line-clamp-2">
+                        Escape the city to this charming cottage with beautiful garden, fireplace, and scenic views. Ideal for a peaceful retreat.
+                    </p>
+                    <div class="border-t border-gray-200 pt-4 mt-4">
+                        <div class="flex flex-wrap justify-between items-center text-xs text-gray-600 gap-y-3 gap-x-2">
+                            <span class="inline-flex items-center bg-yellow-100 text-yellow-800 px-2.5 py-1 rounded-full font-medium">
+                                <svg class="w-3 h-3 mr-1.5 text-yellow-600" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path></svg>
+                                NEW
+                            </span>
+                            <span class="flex items-center" title="Property Type">
+                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="w-4 h-4 mr-1 text-south-brown"><path d="M10.75 2.75a.75.75 0 00-1.5 0v8.586l-1.22-1.22a.75.75 0 00-1.06 1.06l2.5 2.5a.75.75 0 001.06 0l2.5-2.5a.75.75 0 10-1.06-1.06l-1.22 1.22V2.75z" /><path d="M3.5 9.75a.75.75 0 01.75-.75h11.5a.75.75 0 010 1.5H4.25a.75.75 0 01-.75-.75zM3 15.25a.75.75 0 01.75-.75h12.5a.75.75 0 010 1.5H3.75a.75.75 0 01-.75-.75z" /></svg>
+                                Cottage
+                            </span>
+                            <span class="flex items-center" title="Bedrooms">
+                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-4 h-4 mr-1 text-south-brown"><path stroke-linecap="round" stroke-linejoin="round" d="M3.75 5.25h16.5m-16.5 4.5h16.5m-16.5 4.5h16.5m-16.5 4.5h16.5" /></svg>
+                                2 Bed
+                            </span>
+                            <span class="flex items-center" title="Bathrooms">
+                               <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-4 h-4 mr-1 text-south-brown"><path stroke-linecap="round" stroke-linejoin="round" d="M13.5 10.5V21M10.5 10.5V21M10.5 10.5C10.5 7.90215 8.79995 5.75 6.375 5.75C4.20005 5.75 2.25 7.90215 2.25 10.5V10.5C2.25 12.375 3.375 14.625 6.375 14.625C8.25 14.625 9.375 16.125 9.375 16.125" /><path stroke-linecap="round" stroke-linejoin="round" d="M17.25 11.25l-3.75-5.25M13.5 11.25l3.75-5.25M13.5 11.25v3.75M13.5 15H9.75M13.5 15H15M13.5 15v3.75M13.5 18.75v3.75M13.5 22.5v-3.75" /></svg>
+                                1 Bath
+                            </span>
+                            <span class="flex items-center" title="Area">
+                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-4 h-4 mr-1 text-south-brown"><path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607z" /></svg>
+                                95 sq ft
+                            </span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</section>
+
+    <!-- 5. CTA Rent Section -->
+    <section class="cta-rent-bg bg-cover bg-center py-20 md:py-32 relative">
+        <div class="absolute inset-0 bg-black opacity-60"></div>
+        <div class="container mx-auto px-4 text-center relative z-10">
+            <h2 class="text-3xl md:text-4xl font-bold text-white uppercase">Are you looking for a place to rent?</h2>
+            <p class="text-gray-300 mt-4 mb-8 text-lg">Suspendisse dictum enim sit amet libero malesuada feugiat.</p>
+            <a href="#" class="bg-south-brown hover:bg-opacity-80 text-white font-semibold py-3 px-10 rounded-md transition duration-150 uppercase tracking-wider">
+                Search
+            </a>
+        </div>
+    </section>
+
+    <!-- 6. Client Testimonials Section -->
+    <section class="py-12 md:py-20 bg-gray-50">
+        <div class="container mx-auto px-4">
+            <div class="text-center mb-10 md:mb-16">
+                <h2 class="text-3xl md:text-4xl font-bold text-gray-800 uppercase">Client Testimonials</h2>
+                <p class="text-gray-500 mt-2">Suspendisse dictum enim sit amet libero malesuada feugiat.</p>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                {[...Array(3)].map((_, i) => (
+                <div key={i} class="bg-white p-8 rounded-lg shadow-lg text-center transition-all duration-300 hover:shadow-xl hover:-translate-y-1">
+                    <h4 class="text-lg font-semibold text-gray-800 mb-3">Perfect Home for me</h4>
+                    <p class="text-gray-600 text-sm leading-relaxed mb-6">
+                        Etiam nec odio vestibulum est mattis effic iturut magna. Pellentesque sit amet tellus blandit. Etiam nec odio vestibulum est mattis effic iturut magna. Pellentesque sit amet tellus blandit.
+                    </p>
+                    <div class="flex flex-col items-center">
+                        <img src={`https://themewagon.github.io/south/img/clients-img/${i % 3 + 1}.jpg`} alt="Client" class="w-16 h-16 rounded-full mb-3 object-cover border-2 border-gray-200">
+                        <p class="font-semibold text-gray-700">Diane Smith, <span class="font-normal text-gray-500">Customer</span></p>
+                    </div>
+                </div>
+                ))}
+            </div>
+        </div>
+    </section>
+
+    <!-- 7. Jeremy Scott Realtor Section -->
+     <section class="py-12 md:py-20 bg-white">
+        <div class="container mx-auto px-4">
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-12 items-center">
+                <div>
+                    <div class="flex items-center mb-4">
+                        <span class="text-4xl text-south-brown mr-3 font-serif italic">❞</span>
+                        <div>
+                            <h2 class="text-3xl font-bold text-gray-800">JEREMY SCOTT</h2>
+                            <p class="text-south-brown">Realtor</p>
+                        </div>
+                    </div>
+                    <p class="text-gray-600 leading-relaxed mb-6">
+                        Etiam nec odio vestibulum est mattis effic iturut magna. Pellentesque sit amet tellus blandit. Etiam nec odio vestibulum est mattis effic iturut magna. Pellentesque sit amet tellus blandit. Etiam nec odio vestibulum est mattis effic iturut magna. Curabitur rhoncus auctor eleifend. Fusce venenatis diam urna, eu pharetra arcu varius ac. Etiam cursus turpis lectus, id iaculis risus tempor id. Phasellus fringilla nisl sed scm scelerisque, eget aliquam magna vehicula.
+                    </p>
+                    <div class="space-y-3 text-gray-700 mb-6">
+                        <p class="flex items-center">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="w-5 h-5 mr-2 text-south-brown"><path fill-rule="evenodd" d="M2 3.5A1.5 1.5 0 013.5 2h1.148a1.5 1.5 0 011.465 1.175l.716 3.578a1.5 1.5 0 01-1.052 1.767l-.933.267c-.41.117-.643.555-.48.95a11.542 11.542 0 006.254 6.254c.395.163.833-.07.95-.48l.267-.933a1.5 1.5 0 011.767-1.052l3.578.716A1.5 1.5 0 0118 15.352V16.5a1.5 1.5 0 01-1.5 1.5H15c-1.149 0-2.263-.15-3.326-.43A13.022 13.022 0 012.43 8.326 13.019 13.019 0 012 5V3.5z" clip-rule="evenodd" /></svg>
+                            +45 677 8993000 223
+                        </p>
+                        <p class="flex items-center">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="w-5 h-5 mr-2 text-south-brown"><path d="M3 4a2 2 0 00-2 2v1.161l8.441 4.221a1.25 1.25 0 001.118 0L19 7.161V6a2 2 0 00-2-2H3z" /><path d="M19 8.839l-7.77 3.885a2.75 2.75 0 01-2.46 0L1 8.839V14a2 2 0 002 2h14a2 2 0 002-2V8.839z" /></svg>
+                            office@template.com
+                        </p>
+                    </div>
+                    <img src="https://themewagon.github.io/south/img/core-img/signature.png" alt="Signature" class="h-12">
+                </div>
+                <div class="realtor-jeremy-bg bg-cover bg-center h-96 md:h-[550px] rounded-lg shadow-md">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 8. Footer Section -->
+    <footer class="bg-south-dark text-gray-400 pt-16 pb-8">
+        <div class="container mx-auto px-4">
+            <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-8 mb-12">
+                <div>
+                    <a href="#" class="text-2xl font-bold flex items-center text-white mb-4">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-7 h-7 mr-2 text-south-brown">
+                           <path stroke-linecap="round" stroke-linejoin="round" d="M2.25 12l8.954-8.955c.44-.439 1.152-.439 1.591 0L21.75 12M4.5 9.75v10.125c0 .621.504 1.125 1.125 1.125H9.75v-4.875c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125V21h4.125c.621 0 1.125-.504 1.125-1.125V9.75M8.25 21h7.5" />
+                        </svg>
+                        MOHONA
+                    </a>
+                    <img src="https://themewagon.github.io/south/img/bg-img/footer.jpg" alt="Footer property" class="rounded mb-4 w-full h-auto object-cover max-w-[200px]">
+                    <p class="text-sm leading-relaxed mb-3">Integer nec bibendum lacus. Suspendisse dictum enim sit amet libero malesuada feugiat. Praesent sapien massa.</p>
+                    <div class="space-y-1 text-sm">
+                         <p class="flex items-start"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="w-4 h-4 mr-2 mt-0.5 text-south-brown flex-shrink-0"><path fill-rule="evenodd" d="M9.69 18.933l.003.001C9.89 19.02 10 19 10 19s.11.02.308-.066l.002-.001.006-.003.018-.008a5.741 5.741 0 00.281-.145l.005-.002.007-.004.011-.007a48.45 48.45 0 002.406-1.916l.003-.002c1.604-1.41 3.096-3.076 3.999-4.817.888-1.707 1.261-3.49 1.261-5.224C18 5.48 14.433 2 10 2S2 5.48 2 9.755c0 1.734.373 3.517 1.261 5.224.903 1.74 2.395 3.406 3.999 4.817l.003.002a48.445 48.445 0 002.406 1.916l.011.007.007.004.005.002a5.74 5.74 0 00.28.145l.019.008.006.003zM10 11.75a2 2 0 100-4 2 2 0 000 4z" clip-rule="evenodd" /></svg> Main Str. no 45-46, b3, Los Angeles, CA</p>
+                        <p class="flex items-center"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="w-4 h-4 mr-2 text-south-brown"><path fill-rule="evenodd" d="M2 3.5A1.5 1.5 0 013.5 2h1.148a1.5 1.5 0 011.465 1.175l.716 3.578a1.5 1.5 0 01-1.052 1.767l-.933.267c-.41.117-.643.555-.48.95a11.542 11.542 0 006.254 6.254c.395.163.833-.07.95-.48l.267-.933a1.5 1.5 0 011.767-1.052l3.578.716A1.5 1.5 0 0118 15.352V16.5a1.5 1.5 0 01-1.5 1.5H15c-1.149 0-2.263-.15-3.326-.43A13.022 13.022 0 012.43 8.326 13.019 13.019 0 012 5V3.5z" clip-rule="evenodd" /></svg> +45 677 8993000 223</p>
+                        <p class="flex items-center"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="w-4 h-4 mr-2 text-south-brown"><path d="M3 4a2 2 0 00-2 2v1.161l8.441 4.221a1.25 1.25 0 001.118 0L19 7.161V6a2 2 0 00-2-2H3z" /><path d="M19 8.839l-7.77 3.885a2.75 2.75 0 01-2.46 0L1 8.839V14a2 2 0 002 2h14a2 2 0 002-2V8.839z" /></svg> office@template.com</p>
+                    </div>
+                </div>
+                <div>
+                    <h5 class="text-white font-semibold uppercase text-lg mb-5">Hours</h5>
+                    <ul class="space-y-2 text-sm">
+                        <li class="flex justify-between border-b border-gray-700 pb-1"><span>Monday - Friday</span> <span>09 AM - 19 PM</span></li>
+                        <li class="flex justify-between border-b border-gray-700 pb-1"><span>Saturday</span> <span>09 AM - 14 PM</span></li>
+                        <li class="flex justify-between"><span>Sunday</span> <span>Closed</span></li>
+                    </ul>
+                </div>
+                <div>
+                    <h5 class="text-white font-semibold uppercase text-lg mb-5">Useful Links</h5>
+                    <div class="grid grid-cols-2 gap-x-4 text-sm">
+                        <ul class="space-y-2">
+                            <li><a href="#" class="hover:text-south-brown">Home</a></li><li><a href="#" class="hover:text-south-brown">About us</a></li><li><a href="#" class="hover:text-south-brown">Properties</a></li><li><a href="#" class="hover:text-south-brown">Testimonials</a></li><li><a href="#" class="hover:text-south-brown">Blog</a></li><li><a href="#" class="hover:text-south-brown">Contact</a></li><li><a href="#" class="hover:text-south-brown">FAQ</a></li>
+                        </ul>
+                        <ul class="space-y-2">
+                            <li><a href="#" class="hover:text-south-brown">About us</a></li><li><a href="#" class="hover:text-south-brown">Services</a></li><li><a href="#" class="hover:text-south-brown">Listings</a></li><li><a href="#" class="hover:text-south-brown">Properties</a></li><li><a href="#" class="hover:text-south-brown">Testimonials</a></li><li><a href="#" class="hover:text-south-brown">Elements</a></li>
+                        </ul>
+                    </div>
+                </div>
+                <div>
+                    <h5 class="text-white font-semibold uppercase text-lg mb-5">Featured Properties</h5>
+                    <img src="https://themewagon.github.io/south/img/bg-img/featured-footer.jpg" alt="Featured property footer" class="rounded w-full h-auto object-cover max-w-[250px]">
+                </div>
+            </div>
+            <div class="border-t border-gray-700 pt-8 text-center text-sm">
+                <p>Copyright ©<script>document.write(new Date().getFullYear());</script> All rights reserved | This template is made with <span class="text-red-500">♥</span> by Colorlib</p>
+            </div>
+        </div>
+    </footer>
+    
+    <button id="to-top-button" title="Go To Top"
+        class="hidden fixed z-50 bottom-10 right-10 p-3 bg-south-brown text-white rounded-full shadow-md hover:bg-opacity-80 transition">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="w-5 h-5">
+            <path fill-rule="evenodd" d="M10 17a.75.75 0 01-.75-.75V5.56l-2.47 2.47a.75.75 0 01-1.06-1.06l4-4a.75.75 0 011.06 0l4 4a.75.75 0 11-1.06 1.06L10.75 5.56V16.25A.75.75 0 0110 17z" clip-rule="evenodd" />
         </svg>
-        <span>SOUTH</span>
-      </a>
-      <nav class="hidden md:flex space-x-6 uppercase text-sm text-gray-100">
-        <a href="#" class="hover:text-white">Home</a>
-        <a href="#" class="hover:text-white">Pages</a>
-        <a href="#" class="hover:text-white">About Us</a>
-        <a href="#" class="hover:text-white">Properties</a>
-        <a href="#" class="hover:text-white">Blog</a>
-        <a href="#" class="hover:text-white">Mega Menu</a>
-        <a href="#" class="hover:text-white">Contact</a>
-      </nav>
-    </div>
-  </header>
+    </button>
 
-  <!-- Hero Section -->
-  <section class="relative bg-cover bg-center h-[500px]" style="background-image: url('https://via.placeholder.com/1920x600');">
-    <div class="absolute inset-0 bg-black opacity-60"></div>
-    <div class="relative max-w-7xl mx-auto px-4 h-full flex items-center justify-center">
-      <h1 class="text-white text-4xl md:text-5xl font-bold uppercase text-center">Find Your Home</h1>
-    </div>
-  </section>
+    <script>
+        // JS for JSX-like map for testimonials (conceptual)
+        // In pure HTML, you'd repeat the testimonial block manually.
+        // The Array map for testimonials is just for cleaner generation during thought process.
+        // For actual deployment, you'd have static HTML blocks or server-side rendering.
 
-  <!-- Search Filter Form -->
-  <section class="relative z-10 -mt-24">
-    <div class="max-w-7xl mx-auto px-4">
-      <form class="bg-white rounded-lg shadow-lg p-6">
-        <h2 class="text-lg font-semibold mb-4 uppercase">Search for Your Home</h2>
-        <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4">
-          <div>
-            <label class="text-sm font-medium text-gray-700">Keyword</label>
-            <input type="text" placeholder="e.g. villa" class="mt-1 block w-full border rounded px-3 py-2">
-          </div>
-          <div>
-            <label class="text-sm font-medium text-gray-700">City</label>
-            <select class="mt-1 block w-full border rounded px-3 py-2">
-              <option>All Cities</option>
-            </select>
-          </div>
-          <div>
-            <label class="text-sm font-medium text-gray-700">Category</label>
-            <select class="mt-1 block w-full border rounded px-3 py-2">
-              <option>All Categories</option>
-            </select>
-          </div>
-          <div>
-            <label class="text-sm font-medium text-gray-700">Offers</label>
-            <select class="mt-1 block w-full border rounded px-3 py-2">
-              <option>All Offers</option>
-            </select>
-          </div>
-          <div>
-            <label class="text-sm font-medium text-gray-700">Listing Type</label>
-            <select class="mt-1 block w-full border rounded px-3 py-2">
-              <option>All Listings</option>
-            </select>
-          </div>
-          <div>
-            <label class="text-sm font-medium text-gray-700">Bedrooms</label>
-            <select class="mt-1 block w-full border rounded px-3 py-2">
-              <option>Any</option>
-            </select>
-          </div>
-          <div>
-            <label class="text-sm font-medium text-gray-700">Bathrooms</label>
-            <select class="mt-1 block w-full border rounded px-3 py-2">
-              <option>Any</option>
-            </select>
-          </div>
-          <div>
-            <label class="text-sm font-medium text-gray-700">Area (sq ft)</label>
-            <input type="range" class="w-full mt-2">
-            <div class="flex justify-between text-xs text-gray-500 mt-1">
-              <span>120</span><span>820</span>
-            </div>
-          </div>
-          <div class="md:col-span-2">
-            <label class="text-sm font-medium text-gray-700">Price ($)</label>
-            <input type="range" class="w-full mt-2">
-            <div class="flex justify-between text-xs text-gray-500 mt-1">
-              <span>81</span><span>810</span>
-            </div>
-          </div>
-        </div>
-        <div class="flex flex-col sm:flex-row justify-between items-center mt-6 space-y-4 sm:space-y-0">
-          <a href="#" class="text-sm text-indigo-600 hover:underline">+ More filters</a>
-          <button type="submit" class="bg-amber-500 hover:bg-amber-600 text-white font-semibold px-6 py-2 rounded">
-            Search
-          </button>
-        </div>
-      </form>
-    </div>
-  </section>
-
+        // Back to top button logic
+        var toTopButton = document.getElementById("to-top-button");
+        if (toTopButton) {
+            window.onscroll = function () {
+                if (document.body.scrollTop > 200 || document.documentElement.scrollTop > 200) {
+                    toTopButton.classList.remove("hidden");
+                } else {
+                    toTopButton.classList.add("hidden");
+                }
+            };
+            toTopButton.onclick = function () {
+                document.body.scrollTop = 0; 
+                document.documentElement.scrollTop = 0; 
+            };
+        }
+    </script>
 </body>
 </html>

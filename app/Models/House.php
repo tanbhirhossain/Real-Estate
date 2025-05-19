@@ -3,12 +3,14 @@
 namespace App\Models;
 
 use App\Models\User;
+use App\Models\Feature;
 use App\Models\Realtor;
 use App\Models\Category;
-use Illuminate\Database\Eloquent\Factories\HasFactory;
+use App\Models\AssignFeature;
 use Spatie\MediaLibrary\HasMedia;
 use Illuminate\Database\Eloquent\Model;
 use Spatie\MediaLibrary\InteractsWithMedia;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class House extends Model implements HasMedia
 {
@@ -51,5 +53,12 @@ class House extends Model implements HasMedia
     {
          $this->addMediaCollection('house_gallery_images');
     }
+
+   public function features()
+    {
+        return $this->belongsToMany(Feature::class, 'assign_features', 'house_id', 'feature_id');
+    }
+
+
     
 }
