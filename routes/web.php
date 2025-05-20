@@ -14,7 +14,7 @@ use Inertia\Inertia;
 // });
 
 Route::get('/', [HomepageController::class, 'index'])->name('front.home');
-Route::get('/property', [PropertyController::class, 'index'])->name('front.property');
+Route::get('/properties', [PropertyController::class, 'index'])->name('front.property');
 Route::get('/room/{slug}', [HomepageController::class, 'roomDetails'])->name('front.room.details');
 
 

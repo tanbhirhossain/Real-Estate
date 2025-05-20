@@ -2,13 +2,7 @@
     <FrontLayout>
 
  <!-- 2. Hero Image Section -->
-    <section class="hero-bg-image bg-cover bg-center h-[500px] md:h-[600px] lg:h-[700px] relative flex items-center justify-center">
-        <div class="relative z-10 text-center p-6 find-home-text-bg">
-            <h1 class="text-white text-4xl sm:text-5xl md:text-6xl font-bold uppercase tracking-wider">
-                Find Your Home
-            </h1>
-        </div>
-    </section>
+    <HeroCarosel></HeroCarosel>
 
     <!-- 3. Search Filter Section -->
     <section class="bg-gray-50 py-12 md:py-16 -mt-16 relative z-20">
@@ -216,6 +210,7 @@
 
 <script setup lang="ts">
     import FrontLayout from '@/front/AppLayout.vue';
+    import HeroCarosel from '@/front/Components/HeroCarosel.vue';
 
 
     defineProps({
