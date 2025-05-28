@@ -29,7 +29,7 @@ class RealtorFactory extends Factory
             'phone' => $this->faker->phoneNumber(),
             'bio' => $this->faker->paragraph(),
             'address' => $this->faker->address(),
-            'created_by' => $user->id,  // Assign the user id safely
+            'created_by' => 1,  // Assign the user id safely
         ];
     }
 

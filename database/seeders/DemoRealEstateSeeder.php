@@ -28,7 +28,7 @@ class DemoRealEstateSeeder extends Seeder
         // For each realtor, create houses
         foreach ($realtors as $realtor) {
             House::factory()
-                ->count(50)
+                ->count(5000)
                 ->for($realtor)
                 ->for($categories->random())
                 ->create();

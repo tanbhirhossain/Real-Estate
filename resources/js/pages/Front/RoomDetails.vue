@@ -418,57 +418,91 @@
 </template>
 
 <script lang="ts" setup>
-import { ref, computed, onMounted, watch } from 'vue'; // Added watch
+import { ref, computed, onMounted, watch } from 'vue';
 import FrontLayout from '@/front/AppLayout.vue';
+import { useForm } from '@inertiajs/vue3';
 
-// Define interfaces
+// Define interfaces with stricter typing
 interface Realtor {
-  name?: string;
+  id?: number;
+  name: string;
   title?: string;
   image_url?: string;
-  phone?: string;
-  email?: string;
+  phone: string;
+  email: string;
 }
 
 interface Feature {
+  id: number;
   name: string;
+  icon?: string;
 }
 
 interface House {
-  title?: string;
-  address?: string;
-  main_image_url?: string;
-  formatted_price?: string; // This seems to be total price
-  price?: number; // NEW: For booking calculation
-  status?: 'For Sale' | 'For Rent' | string;
+  id: number;
+  title: string;
+  address: string;
+  main_image_url: string;
+  price: number;
+  status: 'For Sale' | 'For Rent' | 'Booked' | 'Sold';
   is_new?: boolean;
-  type?: string;
-  bedrooms?: number;
-  bathrooms?: number;
-  area_sqft?: number;
-  description?: string;
+  type: string;
+  bedrooms: number;
+  bathrooms: number;
+  area_sqft: number;
+  descriptions: string;
   features?: Feature[];
   realtor?: Realtor;
+  available_from?: string;
+  available_to?: string;
+}
+
+interface GalleryImage {
+  id: number;
+  url: string;
+  alt?: string;
+  is_main?: boolean;
+}
+
+interface BookingForm {
+  house_id?: number;
+  check_in_date: string;
+  check_out_date: string;
+  num_adults: number;
+  num_children: number;
+  name: string;
+  email: string;
+  phone: string;
+  message: string;
+}
+
+interface ContactForm {
+  name: string;
+  email: string;
+  message: string;
 }
 
 const props = defineProps<{
-  house: House | null | undefined;
-  galleryImages: Array<{ url: string; alt?: string }>;
+  house: House;
+  galleryImages: GalleryImage[];
 }>();
 
-const selectedImage = ref<string | null>(null);
+// Image handling
+const selectedImage = ref<string>(props.house.main_image_url);
 const activeTab = ref<'contact' | 'booking'>('contact');
 
-const agentContactForm = ref({
+// Forms
+const agentContactForm = ref<ContactForm>({
   name: '',
   email: '',
   message: ''
 });
 
-// --- Multi-step Booking Form Logic ---
-const currentBookingStep = ref(1);
-const bookingForm = ref({
-  check_in_date: '',
+// Booking form logic
+const currentBookingStep = ref<number>(1);
+const bookingForm = ref<BookingForm>({
+  house_id: props.house.id,
+  check_in_date: new Date().toISOString().split('T')[0], // Default to today
   check_out_date: '',
   num_adults: 1,
   num_children: 0,
@@ -478,154 +512,188 @@ const bookingForm = ref({
   message: ''
 });
 
-const minCheckOutDate = computed(() => {
-    if (bookingForm.value.check_in_date) {
-        const date = new Date(bookingForm.value.check_in_date);
-        date.setDate(date.getDate() + 1); // Minimum 1 night stay
-        return date.toISOString().split('T')[0];
-    }
-    return '';
+// Computed properties
+const minCheckOutDate = computed<string>(() => {
+  if (bookingForm.value.check_in_date) {
+    const date = new Date(bookingForm.value.check_in_date);
+    date.setDate(date.getDate() + 1); // Minimum 1 night stay
+    return date.toISOString().split('T')[0];
+  }
+  return '';
 });
 
-// Ensure check_out_date is always after check_in_date
-watch(() => bookingForm.value.check_in_date, (newVal) => {
-    if (newVal && bookingForm.value.check_out_date && new Date(bookingForm.value.check_out_date) <= new Date(newVal)) {
-        bookingForm.value.check_out_date = ''; // Reset if invalid
-    }
-});
-
-
-const numberOfNights = computed(() => {
+const numberOfNights = computed<number>(() => {
   if (bookingForm.value.check_in_date && bookingForm.value.check_out_date) {
     const start = new Date(bookingForm.value.check_in_date);
     const end = new Date(bookingForm.value.check_out_date);
-    if (end <= start) return 0; // Invalid date range
-    const diffTime = Math.abs(end.getTime() - start.getTime());
-    const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
-    return diffDays;
+    if (end <= start) return 0;
+    return Math.ceil((end.getTime() - start.getTime()) / (1000 * 60 * 60 * 24));
   }
   return 0;
 });
 
-const totalBookingCost = computed(() => {
-  const nights = numberOfNights.value;
-  // Use a default price_per_night if not provided by the house prop, or make it mandatory
-  const pricePerNight = props.house?.price || 100; // Example: $100/night default
-  if (nights > 0) {
-    return nights * pricePerNight;
-  }
-  return 0;
+const totalBookingCost = computed<number>(() => {
+  return numberOfNights.value * props.house.price;
 });
 
+const mapEmbedUrl = computed<string>(() => {
+  const encodedAddress = encodeURIComponent(props.house.address);
+  return `https://maps.google.com/maps?q=${encodedAddress}&t=&z=15&ie=UTF8&iwloc=&output=embed`;
+});
+
+// Default features if none provided
+const defaultFeatures = computed<Feature[]>(() => [
+  { id: 1, name: "Gated Community" },
+  { id: 2, name: "Automatic Sprinklers" },
+  { id: 3, name: "Fireplace" },
+  { id: 4, name: "Window Shutters" },
+  { id: 5, name: "Ocean Views" },
+  { id: 6, name: "Heated Floors" },
+  { id: 7, name: "Private Patio" },
+  { id: 8, name: "Beach Access" },
+  { id: 9, name: "Rooftop Terrace" }
+]);
+
+// Watchers
+watch(() => bookingForm.value.check_in_date, (newVal) => {
+  if (newVal && bookingForm.value.check_out_date && 
+      new Date(bookingForm.value.check_out_date) <= new Date(newVal)) {
+    bookingForm.value.check_out_date = '';
+  }
+});
+
+// Form validation
 const validateStep1 = (): boolean => {
-    if (!bookingForm.value.check_in_date) {
-        alert("Please select a check-in date.");
-        return false;
-    }
-    if (!bookingForm.value.check_out_date) {
-        alert("Please select a check-out date.");
-        return false;
-    }
-    if (new Date(bookingForm.value.check_out_date) <= new Date(bookingForm.value.check_in_date)) {
-        alert("Check-out date must be after check-in date.");
-        return false;
-    }
-    if (bookingForm.value.num_adults < 1) {
-        alert("Number of adults must be at least 1.");
-        return false;
-    }
-    return true;
+  if (!bookingForm.value.check_in_date) {
+    alert("Please select a check-in date.");
+    return false;
+  }
+  if (!bookingForm.value.check_out_date) {
+    alert("Please select a check-out date.");
+    return false;
+  }
+  if (new Date(bookingForm.value.check_out_date) <= new Date(bookingForm.value.check_in_date)) {
+    alert("Check-out date must be after check-in date.");
+    return false;
+  }
+  if (bookingForm.value.num_adults < 1) {
+    alert("Number of adults must be at least 1.");
+    return false;
+  }
+  return true;
 };
 
 const validateStep2 = (): boolean => {
-    if (!bookingForm.value.name.trim()) {
-        alert("Please enter your name.");
-        return false;
+  if (!bookingForm.value.name.trim()) {
+    alert("Please enter your name.");
+    return false;
+  }
+  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  if (!emailRegex.test(bookingForm.value.email)) {
+    alert("Please enter a valid email address.");
+    return false;
+  }
+  if (!bookingForm.value.phone.trim()) {
+    alert("Please enter your phone number.");
+    return false;
+  }
+  return true;
+};
+
+// Navigation
+const nextStep = (): void => {
+  if (currentBookingStep.value === 1 && !validateStep1()) return;
+  if (currentBookingStep.value === 2 && !validateStep2()) return;
+  if (currentBookingStep.value < 3) currentBookingStep.value++;
+};
+
+const prevStep = (): void => {
+  if (currentBookingStep.value > 1) currentBookingStep.value--;
+};
+
+// Form submissions
+const bookingFormInertia = useForm({
+  house_id: props.house.id,
+  check_in_date: bookingForm.value.check_in_date,
+  check_out_date: bookingForm.value.check_out_date,
+  num_adults: bookingForm.value.num_adults,
+  num_children: bookingForm.value.num_children,
+  name: bookingForm.value.name,
+  email: bookingForm.value.email,
+  phone: bookingForm.value.phone,
+  message: bookingForm.value.message
+});
+
+const submitBookingRequest = (): void => {
+  if (currentBookingStep.value !== 3) return;
+
+  // Update form data before submission
+  bookingFormInertia.check_in_date = bookingForm.value.check_in_date;
+  bookingFormInertia.check_out_date = bookingForm.value.check_out_date;
+  bookingFormInertia.num_adults = bookingForm.value.num_adults;
+  bookingFormInertia.num_children = bookingForm.value.num_children;
+  bookingFormInertia.name = bookingForm.value.name;
+  bookingFormInertia.email = bookingForm.value.email;
+  bookingFormInertia.phone = bookingForm.value.phone;
+  bookingFormInertia.message = bookingForm.value.message;
+
+  bookingFormInertia.post('/property/store', {
+    preserveScroll: true,
+    onSuccess: () => {
+      // Reset form after successful submission
+      bookingForm.value = {
+        house_id: props.house.id,
+        check_in_date: new Date().toISOString().split('T')[0],
+        check_out_date: '',
+        num_adults: 1,
+        num_children: 0,
+        name: '',
+        email: '',
+        phone: '',
+        message: ''
+      };
+      currentBookingStep.value = 1;
+      // You might want to use a toast notification here instead of alert
+      alert('Booking request submitted successfully!');
+    },
+    onError: (errors) => {
+      if (errors.dates) {
+        alert(errors.dates);
+        currentBookingStep.value = 1;
+      }
     }
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    if (!bookingForm.value.email.trim() || !emailRegex.test(bookingForm.value.email)) {
-        alert("Please enter a valid email address.");
-        return false;
-    }
-    // Phone validation can be added if stricter rules are needed
-    return true;
-};
-
-const nextStep = () => {
-  if (currentBookingStep.value === 1) {
-    if (!validateStep1()) return;
-  } else if (currentBookingStep.value === 2) {
-    if (!validateStep2()) return;
-  }
-  if (currentBookingStep.value < 3) {
-    currentBookingStep.value++;
-  }
-};
-
-const prevStep = () => {
-  if (currentBookingStep.value > 1) {
-    currentBookingStep.value--;
-  }
-};
-
-const submitBookingRequest = () => {
-  // Final validation before submission (optional, as steps should be validated)
-  if (!validateStep1() || !validateStep2()) {
-      alert("Please ensure all fields are correctly filled out.");
-      // Optionally navigate back to the first invalid step
-      if (!validateStep1()) currentBookingStep.value = 1;
-      else if (!validateStep2()) currentBookingStep.value = 2;
-      return;
-  }
-  console.log('Booking Request Submitted:', {
-    ...bookingForm.value,
-    numberOfNights: numberOfNights.value,
-    totalCost: totalBookingCost.value,
-    propertyTitle: props.house?.title || 'N/A'
   });
-  alert('Booking request submitted (simulated)! We will contact you shortly.');
-  // Reset form and step
-  bookingForm.value = {
-    check_in_date: '',
-    check_out_date: '',
-    num_adults: 1,
-    num_children: 0,
-    name: '',
-    email: '',
-    phone: '',
-    message: ''
-  };
-  currentBookingStep.value = 1;
 };
-// --- End Multi-step Booking Form Logic ---
 
-const defaultFeatures = ref<Feature[]>([
-    { name: "Gated Community" }, { name: "Automatic Sprinklers" }, { name: "Fireplace" },
-    { name: "Window Shutters" }, { name: "Ocean Views" }, { name: "Heated Floors" },
-    { name: "Private Patio" }, { name: "Beach Access" }, { name: "Rooftop Terrace" }
-]);
-
-const mapEmbedUrl = computed(() => {
-  if (props.house?.address) {
-    const encodedAddress = encodeURIComponent(props.house.address);
-    return `https://maps.google.com/maps?q=${encodedAddress}&t=&z=15&ie=UTF8&iwloc=&output=embed`;
-  }
-  return 'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3966.521260322829!2d106.8271527143903!3d-6.194420195512993!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e69f4245c78a629%3A0x751c21c099f08f7a!2sMonas%2C%20Central%20Jakarta%2C%20Jakarta%2C%20Indonesia!5e0!3m2!1sen!2sid!4v1621904921439!5m2!1sen!2sid';
+const contactFormInertia = useForm({
+  name: agentContactForm.value.name,
+  email: agentContactForm.value.email,
+  message: agentContactForm.value.message,
+  property_id: props.house.id
 });
 
+const submitAgentContactForm = (): void => {
+  contactFormInertia.name = agentContactForm.value.name;
+  contactFormInertia.email = agentContactForm.value.email;
+  contactFormInertia.message = agentContactForm.value.message;
+
+  contactFormInertia.post('/contact-agent', {
+    preserveScroll: true,
+    onSuccess: () => {
+      agentContactForm.value = { name: '', email: '', message: '' };
+      alert('Message sent to agent successfully!');
+    },
+    onError: () => {
+      alert('There was an error sending your message. Please try again.');
+    }
+  });
+};
+
+// Initialize selected image
 onMounted(() => {
-  if (props.house?.main_image_url) {
-    selectedImage.value = props.house.main_image_url;
-  } else if (props.galleryImages && props.galleryImages.length > 0) {
-    selectedImage.value = props.galleryImages[0].url;
+  if (props.galleryImages?.length > 0) {
+    const mainImage = props.galleryImages.find(img => img.is_main);
+    selectedImage.value = mainImage?.url || props.galleryImages[0].url;
   }
-  bookingForm.value.check_in_date = new Date().toISOString().split('T')[0]; // Default check-in to today
 });
-
-const submitAgentContactForm = () => {
-  console.log('Agent Contact Form submitted:', agentContactForm.value);
-  alert('Message sent to agent (simulated)!');
-  agentContactForm.value = { name: '', email: '', message: '' };
-};
-
 </script>

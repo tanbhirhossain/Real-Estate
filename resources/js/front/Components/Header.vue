@@ -10,20 +10,21 @@
     <nav class="bg-south-dark text-white sticky top-0 z-50 shadow-md">
         <div class="container mx-auto px-4">
             <div class="flex justify-between items-center py-4">
-                <a href="#" class="text-2xl font-bold flex items-center">
+                <Link href="/" class="text-2xl font-bold flex items-center">
                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-7 h-7 mr-2 text-south-brown">
                         <path stroke-linecap="round" stroke-linejoin="round" d="M2.25 12l8.954-8.955c.44-.439 1.152-.439 1.591 0L21.75 12M4.5 9.75v10.125c0 .621.504 1.125 1.125 1.125H9.75v-4.875c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125V21h4.125c.621 0 1.125-.504 1.125-1.125V9.75M8.25 21h7.5" />
                     </svg>
                     MOHONA
-                </a>
+                </Link>
                 <div class="hidden md:flex space-x-6 items-center uppercase text-sm tracking-wider">
-                    <a href="#" class="hover:text-south-brown transition duration-150">Home</a>
+                    <Link href="/" class="hover:text-south-brown transition duration-150">Home</Link>
+                    <Link href="/properties" class="hover:text-south-brown transition duration-150">Properties</Link>
+                    <Link href="/about" class="hover:text-south-brown transition duration-150">About Us</Link>
+<!-- 
                     <a href="#" class="hover:text-south-brown transition duration-150">Pages</a>
-                    <a href="#" class="hover:text-south-brown transition duration-150">About Us</a>
-                    <a href="#" class="hover:text-south-brown transition duration-150">Properties</a>
                     <a href="#" class="hover:text-south-brown transition duration-150">Blog</a>
-                    <a href="#" class="hover:text-south-brown transition duration-150">Mega Menu</a>
-                    <a href="#" class="hover:text-south-brown transition duration-150">Contact</a>
+                    <a href="#" class="hover:text-south-brown transition duration-150">Mega Menu</a> -->
+                    <Link href="/contact" class="hover:text-south-brown transition duration-150">Contact</Link>
                 </div>
                 <div class="flex items-center space-x-4">
                     <div class="hidden sm:flex items-center space-x-2 text-sm">
@@ -47,3 +48,7 @@
         </div>
     </nav>
 </template>
+
+<script lang="ts" setup>
+    import { Link } from '@inertiajs/vue3';
+</script>

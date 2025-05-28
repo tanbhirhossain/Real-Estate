@@ -24,8 +24,9 @@ class HouseFactory extends Factory
             'realtor_id'   => Realtor::factory(),
             'category_id'  => Category::factory(),
             'created_by'   => User::factory(),
-            'title'         => $title,
-            'slug'         => Str::slug($title),
+            'title'        => $title,
+            // Append a unique number to ensure slug uniqueness
+            'slug'         => Str::slug($title) . '-' . $this->faker->unique()->numberBetween(1000, 9999),
             'short_desc'   => $this->faker->sentence(),
             'descriptions' => $this->faker->paragraphs(3, true),
             'price'        => $this->faker->numberBetween(50000, 500000),
@@ -37,35 +38,35 @@ class HouseFactory extends Factory
         ];
     }
 
-public function configure()
-{
-    return $this->afterCreating(function (House $house) {
-        // Assign 2–4 random features
-        $featureIds = Feature::inRandomOrder()->limit(rand(2, 4))->pluck('id');
+    public function configure()
+    {
+        return $this->afterCreating(function (House $house) {
+            // Assign 2–4 random features
+            $featureIds = Feature::inRandomOrder()->limit(rand(2, 4))->pluck('id');
 
-        foreach ($featureIds as $featureId) {
-            AssignFeature::create([
-                'house_id' => $house->id,
-                'feature_id' => $featureId,
-            ]);
-        }
-
-        // Attach 2–4 random gallery images
-        $imageCount = rand(2, 4);
-        for ($i = 1; $i <= $imageCount; $i++) {
-            $imageName = "house{$i}.jpg"; // Ensure these exist
-            $filePath = database_path("seeders/media-samples/{$imageName}");
-
-            if (file_exists($filePath)) {
-                $file = new UploadedFile($filePath, $imageName, 'image/jpeg', null, true);
-
-                $house->addMedia($file)
-                    ->preservingOriginal()
-                    ->usingName("Gallery Image {$i}")
-                    ->usingFileName("house-{$house->id}-{$i}.jpg")
-                    ->toMediaCollection('house_gallery_images');
+            foreach ($featureIds as $featureId) {
+                AssignFeature::create([
+                    'house_id'   => $house->id,
+                    'feature_id' => $featureId,
+                ]);
             }
-        }
-    });
-}
+
+            // Attach 2–4 random gallery images
+            $imageCount = rand(2, 4);
+            for ($i = 1; $i <= $imageCount; $i++) {
+                $imageName = "house{$i}.jpg"; // Ensure these exist
+                $filePath = database_path("seeders/media-samples/{$imageName}");
+
+                if (file_exists($filePath)) {
+                    $file = new UploadedFile($filePath, $imageName, 'image/jpeg', null, true);
+
+                    $house->addMedia($file)
+                        ->preservingOriginal()
+                        ->usingName("Gallery Image {$i}")
+                        ->usingFileName("house-{$house->id}-{$i}.jpg")
+                        ->toMediaCollection('house_gallery_images');
+                }
+            }
+        });
+    }
 }
